@@ -8,7 +8,11 @@ let cors = require("cors");
 app.use(cors());
 
 app.get("/", async (req, res) => {
-  res.send("hurray............");
+  try {
+    res.send("hurray............");
+  } catch (e) {
+    res.send(e.message);
+  }
 });
 
 app.listen(PORT, async () => {
