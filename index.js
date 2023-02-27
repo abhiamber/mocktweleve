@@ -3,7 +3,6 @@ const app = express();
 require("dotenv").config();
 let conncet = require("./config/db");
 let PORT = process.env.PORT;
-let cors = require("cors");
 app.use(express.json());
 let cors = require("cors");
 app.use(cors());
