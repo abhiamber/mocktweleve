@@ -29,10 +29,15 @@ app.post("/", async (req, res) => {
 // ***********get alll prod  max qnty 4 ***********
 
 app.get("/", async (req, res) => {
-  let { page = 1, Category, Date } = req.query;
+  let { page = 1, Category, Date, search } = req.query;
   let prod;
   try {
-    if (Category && Date) {
+    if (search) {
+      prod = await ProdeModel.find({ Name: search })
+
+        .skip((page - 1) * 4)
+        .limit(4);
+    } else if (Category && Date) {
       prod = await ProdeModel.find({ Category })
 
         .skip((page - 1) * 4)
@@ -54,22 +59,6 @@ app.get("/", async (req, res) => {
         .limit(4);
     }
 
-    res.send({ messg: prod });
-  } catch (e) {
-    cosole.log(e.message);
-    res.send({ messg: e.message });
-  }
-});
-
-// ***********get aprod by search ***********
-
-app.get("/search", async (req, res) => {
-  let { search } = req.body;
-  let { page = 1 } = req.query;
-  try {
-    let prod = await ProdeModel.find({ Name: search })
-      .skip((page - 1) * 4)
-      .limit(4);
     res.send({ messg: prod });
   } catch (e) {
     cosole.log(e.message);
