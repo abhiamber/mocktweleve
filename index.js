@@ -6,6 +6,8 @@ let PORT = process.env.PORT || 8080;
 app.use(express.json());
 let cors = require("cors");
 app.use(cors());
+let prodRoutes = require("./routes/prod.routes");
+app.use("/prod", prodRoutes);
 
 app.get("/", async (req, res) => {
   try {
